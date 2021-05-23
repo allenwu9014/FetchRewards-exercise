@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="pointsBackendServlets:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>pointsBackendServlets</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="pointsBackendServlets-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="pointsBackendServlets:war exploded" />
+    </root>
+  </artifact>
+</component>
