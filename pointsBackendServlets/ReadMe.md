@@ -1,5 +1,6 @@
-#Documentation
-###Summary
+# Documentation  
+
+### Summary
 Used Java Servlet to support all three services.
   
 Routes & REST API:
