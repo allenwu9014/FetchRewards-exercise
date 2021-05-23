@@ -20,7 +20,7 @@ display a summary list of every payer, no request parameter, and response a list
 
 Jackson for data mapping
 
-### Environment Configure
+## Environment Configure
 Tomcat 9.0.41  
 Java version 15.0.1  
 URL: http://localhost:8080/points
