@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "ReturnBalancesServlet", value = "/ReturnBalancesServlet")
+@WebServlet(name = "ReturnBalancesServlet", value = "/ReturnBalances")
 public class ReturnBalancesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

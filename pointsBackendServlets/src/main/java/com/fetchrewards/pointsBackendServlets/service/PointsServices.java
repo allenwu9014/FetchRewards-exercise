@@ -4,14 +4,18 @@ import com.fetchrewards.pointsBackendServlets.entity.BalanceItem;
 import com.fetchrewards.pointsBackendServlets.entity.SpendItem;
 import com.fetchrewards.pointsBackendServlets.entity.Transaction;
 
-import javax.swing.*;
+
 import java.util.*;
 
 public class PointsServices {
-//    private List<Transaction> pointsList;
 
+    // points list to store all added item
     private PriorityQueue<Transaction> pointsList;
+
+    // a table for counting the summary of every payer
     private  Map<String, Integer> balanceTable = new HashMap<>();
+
+    // comparator for Heap to sort the queue by timestamp
     private TimestampComparator timestampComparator = new TimestampComparator();
 
     class TimestampComparator implements Comparator<Transaction> {
@@ -26,6 +30,8 @@ public class PointsServices {
         this.pointsList = new PriorityQueue<Transaction>(timestampComparator);
     }
 
+    // Add a transaction function
+    // meanwhile add the item in the balances table
     public boolean AddTransaction(Transaction transaction){
 
             if (balanceTable.containsKey(transaction.getPayer())) {
@@ -41,6 +47,8 @@ public class PointsServices {
 
     }
 
+    // calculate spending points function
+
     public List<SpendItem> SpendPoints(int pointsNumber) {
         List<SpendItem> spendList = new ArrayList<>();
 
@@ -50,6 +58,7 @@ public class PointsServices {
 
         while (pointsNumber > 0) {
 
+            // if pointsList is empty means item not be added yet
             if (pointsList.isEmpty()) {
                 spendList = null;
                 return spendList;
@@ -58,7 +67,9 @@ public class PointsServices {
 
             Transaction temTransaction = pointsList.poll();
             int temPoints = temTransaction.getPoints();
-            
+
+            // if the points of the item is not enough for pay,
+            // then it needs more items
             if (temPoints <= pointsNumber) {
                 temTransaction.setPoints(0);
                 pointsNumber -= temPoints;
@@ -100,35 +111,14 @@ public class PointsServices {
     }
 
     public Map<String, Integer> ReturnBalances() {
-
-//       List<BalanceItem> balanceList = new ArrayList<>();
-//
-//
-//       PriorityQueue<Transaction> temPointsList = new PriorityQueue<>(timestampComparator);
-//
-//       while(!pointsList.isEmpty()) {
-//           Transaction temTransaction = pointsList.poll();
-//           if (temTransaction.getPoints() <= 0) {
-//               temPointsList.add(temTransaction);
-//           }
-//           if (!balanceTable.containsKey(temTransaction.getPayer())) {
-//               balanceTable.put(temTransaction.getPayer(), temTransaction.getPoints());
-//           } else {
-//               int count = balanceTable.get(temTransaction.getPayer());
-//               count += temTransaction.getPoints();
-//               balanceTable.put(temTransaction.getPayer(), count);
-//           }
-//        temPointsList.add(temTransaction);
-//       }
-//        pointsList = temPointsList;
-//
-//       balanceTable.forEach((payer, count) -> {
-//           balanceList.add(new BalanceItem(payer, count));
-//       });
-
        return balanceTable;
     }
 
+
+
+    // re-integrate the list to make sure no minus item
+    // when minus items exist in the list, the function offsets the minus one by
+    // find the oldest item with increasing timestamp order
  public void doMinusPointsIntegration() {
 
         PriorityQueue<Transaction> temTransactionList = new PriorityQueue<>(timestampComparator);

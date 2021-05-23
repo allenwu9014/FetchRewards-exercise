@@ -11,7 +11,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "AddTransactionsServlet", value = "/AddTransactionsServlet")
+@WebServlet(name = "AddTransactionsServlet", value = "/AddTransactions")
 public class AddTransactionsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
